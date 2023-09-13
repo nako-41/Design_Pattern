@@ -4,6 +4,7 @@ var t1 = Task.Run(() =>
     Example.GetInstanceFunc();
 });
 
+
 var t2 = Task.Run(() =>
 {
     Example.GetInstanceFunc();
@@ -34,6 +35,13 @@ class Example
         Console.WriteLine($"{nameof(Example)} nesnesi olusturuldu");
     }
 
+    //2. YONTEM de en gecerli yontem cunku static constructar'da sadece bir kere olusacak,yani locka bile gerek kalmıyor
+
+    static Example()
+    {
+        _example = new Example();
+    }
+
     private static Example _example;
 
     public static Example GetInstance
@@ -52,6 +60,8 @@ class Example
 
         }
     }
+
+
 
 
     // asenkron islemde lock olusturmadan once birden fazla nesne olusturma ihtimali oluyordu.
